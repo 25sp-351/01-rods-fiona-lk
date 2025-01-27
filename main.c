@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 // recursion
-int cutRod(int rod_length, int price[], int cutList[], int *cut_count) {
+int cut_rod(int rod_length, int price[], int cut_list[], int *cut_count) {
     // base case if no length yet
     if (rod_length == 0)
         return 0;
@@ -15,7 +15,7 @@ int cutRod(int rod_length, int price[], int cutList[], int *cut_count) {
     // iterations
     for (int i = 1; i <= rod_length; i++) {
         int current_profit =
-            price[i - 1] + cutRod(rod_length - i, price, cutList, cut_count);
+            price[i - 1] + cutRod(rod_length - i, price, cut_list, cut_count);
 
         if (current_profit > max_profit) {
             max_profit = current_profit;
@@ -23,11 +23,11 @@ int cutRod(int rod_length, int price[], int cutList[], int *cut_count) {
         }
     }
 
-    cutList[(*cut_count)++] = best_cut;
+    cut_list[(*cut_count)++] = best_cut;
     return max_profit;
 }
 
-void printResults(int cut_list[], int cut_count, int price[], int rod_length) {
+void print_results(int cut_list[], int cut_count, int price[], int rod_length) {
     int total_value = 0;
     int length_used = 0;
 
@@ -63,8 +63,8 @@ int main(char *argv[]) {
     int cut_list[rod_length];
     int cut_count = 0;
 
-    cutRod(rod_length, prices, cut_list, &cut_count);
-    printResults(cut_list, prices, cut_list, &cut_count);
+    cut_rod(rod_length, prices, cut_list, &cut_count);
+    print_results(cut_list, prices, cut_list, &cut_count);
 
     return 0;
 }
