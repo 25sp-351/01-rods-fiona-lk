@@ -4,16 +4,16 @@
 #include <stdio.h>
 
 // recursion
-int cutRod(int l, int price[], int cutList[], int *index){
+int cutRod(int rodLength, int price[], int cutList[], int *cutCount){
     // base case if no length yet
-    if (l == 0) return 0;
+    if (rodLength == 0) return 0;
 
     int maxProfit = 0;
     int bestCut = 0;
 
     // iterations
-    for (int i =1; i <= l; i++) {
-        int currentProfit = price[i - 1] + cutRod(l - 1, price, cutList, index);
+    for (int i =1; i <= rodLength; i++) {
+        int currentProfit = price[i - 1] + cutRod(l - 1, price, cutList, cutCount);
 
         if (currentProfit > maxProfit){
             maxProfit = currentProfit;
@@ -21,8 +21,12 @@ int cutRod(int l, int price[], int cutList[], int *index){
         }
     }
 
-    cutList[(*index)++] = bestCut;
+    cutList[(*cutCount)++] = bestCut;
     return maxProfit;
+}
+
+void printResults(int cutList[], int cutCount, int price[], int rodLength) {
+
 }
 
 int main(char *argv[]){
